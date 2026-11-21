@@ -471,7 +471,6 @@ const GITHUB_REPO    = 'ural_semantic_school';
 const GITHUB_BRANCH  = 'main';
 const GITHUB_BASE    = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 
-// Имена файлов в репозитории (должны лежать в корне)
 const ARTICLES_FILE   = 'список статей.xlsx';
 const PARAGRAPHS_FILE = 'DOC001_paragraphs_markup (1).json';
 
@@ -537,9 +536,8 @@ async function loadArticles() {
   const docIdKey    = findKey(sample, ['document_id']);
   const linkKey     = findKey(sample, ['ссылка на документ', 'link']);
   
-  if (!titleKey) {
-    console.warn('Не удалось найти колонку "название". Доступные колонки:', Object.keys(sample));
-  }
+  console.log('Колонки Excel:', Object.keys(sample));
+  console.log('Найденные ключи:', { titleKey, yearKey, authorsKey, themeKey, typeKey, docIdKey, linkKey });
   
   return rows
     .map(r => ({
@@ -555,13 +553,23 @@ async function loadArticles() {
 }
 
 // =====================================================================
-// ЗАГРУЗКА АБЗАЦЕВ (JSON)
+// ЗАГРУЗКА АБЗАЦЕВ (JSON) С ОТЛАДКОЙ
 // =====================================================================
 async function loadParagraphs() {
   try {
+    console.log('Загрузка JSON:', PARAGRAPHS_URL);
     const response = await fetch(PARAGRAPHS_URL);
-    if (!response.ok) return 0;
+    if (!response.ok) {
+      console.warn('JSON не загрузился:', response.status);
+      return 0;
+    }
     const data = await response.json();
+    
+    console.log('Структура JSON:', Array.isArray(data) ? `массив из ${data.length} элементов` : typeof data);
+    if (data.length > 0) {
+      console.log('Первый элемент JSON:', data[0]);
+      console.log('Ключи первого элемента:', Object.keys(data[0]));
+    }
     
     const grouped = {};
     data.forEach(row => {
@@ -574,6 +582,9 @@ async function loadParagraphs() {
       });
     });
     
+    console.log('Найдено документов в JSON:', Object.keys(grouped).length);
+    console.log('ID документов:', Object.keys(grouped));
+    
     Object.keys(grouped).forEach(docId => {
       grouped[docId].sort((a, b) => a.num - b.num);
       articleTexts[docId] = grouped[docId]
@@ -581,6 +592,8 @@ async function loadParagraphs() {
         .filter(t => t.length > 0)
         .join(' ');
     });
+    
+    console.log('articleTexts keys:', Object.keys(articleTexts));
     
     return Object.keys(grouped).length;
   } catch (err) {
@@ -644,18 +657,26 @@ async function init() {
       loadParagraphs()
     ]);
     
-    articles = loadedArticles.map(a => ({
-      ...a,
-      keywords: generateKeywords(a),
-      hasText: !!articleTexts[a.docId]
-    }));
+    articles = loadedArticles.map(a => {
+      const hasText = !!articleTexts[a.docId];
+      if (hasText) {
+        console.log(`✓ Статья "${a.title}" имеет текст (${articleTexts[a.docId].length} символов)`);
+      }
+      return {
+        ...a,
+        keywords: generateKeywords(a),
+        hasText
+      };
+    });
+    
+    const articlesWithText = articles.filter(a => a.hasText).length;
+    console.log(`Всего статей: ${articles.length}, с текстом: ${articlesWithText}`);
     
     populateFilters();
     applyFilters();
     
-    const textCount = Object.keys(articleTexts).length;
     setLoading(
-      `✓ Загружено: ${articles.length} публикаций, текстов в корпусе: ${textCount}`,
+      `✓ Загружено: ${articles.length} публикаций, текстов в корпусе: ${articlesWithText}`,
       'success'
     );
     
@@ -927,6 +948,13 @@ function openModal(idx) {
           ${search && matchCount > 0 ? `<span class="matches-counter">${matchCount} ${pluralize(matchCount, 'совпадение', 'совпадения', 'совпадений')}</span>` : ''}
         </div>
         <div class="text-viewer">${paragraphsHtml}</div>
+      </div>
+    `;
+  } else {
+    textViewerHtml = `
+      <div class="modal-section">
+        <div class="modal-section-label">📖 Текст статьи</div>
+        <div class="modal-section-value" style="color: var(--text-soft); font-style: italic;">Текст статьи не загружен. Доступен только поиск по метаданным.</div>
       </div>
     `;
   }

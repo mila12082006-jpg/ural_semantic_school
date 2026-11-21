@@ -14,14 +14,15 @@
     --primary-light: #4a8570; --accent: #c9a961; --emerald: #50a882;
     --text: #1f3328; --text-soft: #5a6e60; --border: #c8d9bd;
     --highlight: #fff3b0; --highlight-strong: #ffd84d;
-    --danger: #c0392b; --warning: #e67e22; --success: #27ae60;
     --shadow: 0 4px 20px rgba(45, 95, 78, 0.08);
     --shadow-hover: 0 10px 36px rgba(45, 95, 78, 0.18);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Inter', sans-serif;
-    background: var(--bg); color: var(--text); line-height: 1.6;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
     min-height: 100vh;
     background-image: 
       radial-gradient(circle at 10% 20%, rgba(80, 168, 130, 0.08) 0%, transparent 40%),
@@ -29,11 +30,16 @@
   }
   header {
     background: linear-gradient(135deg, #e8f0e4 0%, #d4e4c9 50%, #c8d9bd 100%);
-    padding: 2.5rem 2rem 0; text-align: center;
-    border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+    padding: 2.5rem 2rem 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
   }
   header::before {
-    content: ''; position: absolute; inset: 0;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
     background-image: 
       repeating-linear-gradient(45deg, transparent 0, transparent 40px, rgba(45, 95, 78, 0.03) 40px, rgba(45, 95, 78, 0.03) 41px),
       repeating-linear-gradient(-45deg, transparent 0, transparent 40px, rgba(45, 95, 78, 0.03) 40px, rgba(45, 95, 78, 0.03) 41px);
@@ -42,75 +48,47 @@
   .header-content { position: relative; z-index: 2; }
   .header-badge {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.4rem 1rem; background: rgba(255, 255, 255, 0.6);
-    border: 1px solid var(--border); border-radius: 20px;
-    font-size: 0.8rem; color: var(--primary); letter-spacing: 1px;
-    text-transform: uppercase; margin-bottom: 1rem; backdrop-filter: blur(4px);
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--primary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(4px);
   }
   .header-badge::before { content: '◆'; color: var(--accent); }
   header h1 {
-    font-family: 'Cormorant Garamond', serif; font-size: 2.8rem;
-    font-weight: 500; color: var(--primary-dark);
-    margin-bottom: 0.5rem; letter-spacing: 0.5px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
   }
-  header .subtitle { font-size: 1.05rem; color: var(--text-soft); font-style: italic; margin-bottom: 0.5rem; }
-  .ornament { display: flex; align-items: center; justify-content: center; margin: 1rem 0; gap: 0.8rem; }
+  header .subtitle {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+  .ornament {
+    display: flex; align-items: center; justify-content: center;
+    margin: 1rem 0; gap: 0.8rem;
+  }
   .ornament::before, .ornament::after {
-    content: ''; height: 1px; width: 80px;
+    content: '';
+    height: 1px; width: 80px;
     background: linear-gradient(90deg, transparent, var(--primary), transparent);
   }
   .ornament span { color: var(--primary); font-size: 1.1rem; }
-  .ural-landscape { width: 100%; max-width: 1200px; height: 140px; margin: 1.5rem auto 0; display: block; }
+  .ural-landscape {
+    width: 100%; max-width: 1200px; height: 140px;
+    margin: 1.5rem auto 0; display: block;
+  }
   .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
-  
-  /* ПАНЕЛЬ ОТЛАДКИ */
-  .debug-panel {
-    background: var(--card);
-    border: 2px solid var(--accent);
-    border-radius: 12px;
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.85rem;
-    display: none;
-  }
-  .debug-panel.visible { display: block; }
-  .debug-panel h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: var(--primary-dark);
-    margin-bottom: 0.8rem;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .debug-panel h3::before { content: '🔧'; }
-  .debug-section {
-    margin-bottom: 0.8rem;
-    padding: 0.7rem;
-    background: var(--bg-soft);
-    border-radius: 8px;
-    border-left: 3px solid var(--primary);
-  }
-  .debug-section.error { border-left-color: var(--danger); }
-  .debug-section.warning { border-left-color: var(--warning); }
-  .debug-section.success { border-left-color: var(--success); }
-  .debug-section strong { color: var(--primary-dark); }
-  .debug-section code {
-    background: var(--bg-deep); padding: 0.1rem 0.4rem;
-    border-radius: 4px; font-size: 0.78rem; color: var(--primary);
-  }
-  .debug-toggle {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
-    font-family: inherit;
-    color: var(--text-soft);
-  }
-  .debug-toggle:hover { background: var(--primary); color: white; border-color: var(--primary); }
-  
   .loading-banner {
     background: var(--bg-soft);
     border: 1px solid var(--border);
@@ -130,33 +108,48 @@
     animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-  
   .filters {
-    background: var(--card); border-radius: 16px; padding: 1.8rem;
-    box-shadow: var(--shadow); margin-bottom: 2rem;
-    border: 1px solid var(--border); position: relative;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
   }
   .filters::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
     background: linear-gradient(90deg, var(--primary), var(--emerald), var(--accent), var(--emerald), var(--primary));
     border-radius: 16px 16px 0 0;
   }
   .filters-title {
-    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
-    color: var(--primary-dark); margin-bottom: 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
     display: flex; align-items: center; gap: 0.6rem;
   }
   .filters-title::before { content: '❖'; color: var(--accent); }
   .search-row { display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1rem; }
   .search-wrapper { position: relative; }
   .search-input {
-    width: 100%; padding: 0.9rem 1.2rem 0.9rem 2.8rem;
-    border: 1.5px solid var(--border); border-radius: 12px;
-    font-size: 1rem; font-family: inherit;
-    background: var(--bg-soft); color: var(--text); transition: all 0.3s;
+    width: 100%;
+    padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--bg-soft);
+    color: var(--text);
+    transition: all 0.3s;
   }
   .search-input:focus {
-    outline: none; border-color: var(--primary); background: white;
+    outline: none;
+    border-color: var(--primary);
+    background: white;
     box-shadow: 0 0 0 4px rgba(45, 95, 78, 0.12);
   }
   .search-icon {
@@ -170,18 +163,23 @@
   }
   .search-scope { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
   .scope-chip {
-    padding: 0.4rem 0.9rem; background: var(--bg-soft);
-    border: 1.5px solid var(--border); border-radius: 20px;
+    padding: 0.4rem 0.9rem;
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
     font-size: 0.85rem; color: var(--text-soft);
     cursor: pointer; transition: all 0.3s; font-family: inherit;
   }
   .scope-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
   .scope-chip:hover:not(.active) { border-color: var(--primary-light); color: var(--primary); }
   .reset-btn {
-    padding: 0.85rem 1.5rem; background: var(--bg-soft);
-    border: 1.5px solid var(--border); border-radius: 12px;
-    color: var(--text-soft); cursor: pointer; font-family: inherit;
-    font-size: 0.95rem; transition: all 0.3s; white-space: nowrap;
+    padding: 0.85rem 1.5rem;
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-soft);
+    cursor: pointer; font-family: inherit; font-size: 0.95rem;
+    transition: all 0.3s; white-space: nowrap;
   }
   .reset-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
   .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
@@ -208,8 +206,9 @@
     font-size: 1.3rem; font-family: 'Cormorant Garamond', serif;
   }
   .view-toggle {
-    display: flex; gap: 0.3rem; background: var(--card);
-    padding: 0.3rem; border-radius: 10px; border: 1px solid var(--border);
+    display: flex; gap: 0.3rem;
+    background: var(--card); padding: 0.3rem;
+    border-radius: 10px; border: 1px solid var(--border);
   }
   .view-toggle button {
     padding: 0.5rem 1rem; background: transparent; border: none;
@@ -253,8 +252,9 @@
   }
   .article-snippet mark { background: var(--highlight); color: var(--text); padding: 0 2px; border-radius: 2px; font-weight: 600; }
   .article-snippet-label {
-    display: inline-block; font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.5px; color: var(--primary); font-weight: 600; margin-bottom: 0.3rem;
+    display: inline-block; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--primary); font-weight: 600; margin-bottom: 0.3rem;
   }
   .article-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
   .tag {
@@ -267,7 +267,6 @@
   .tag.keyword::before { content: '#'; opacity: 0.6; margin-right: 1px; }
   .tag.has-text { background: rgba(80, 168, 130, 0.15); color: var(--primary); border-color: rgba(80, 168, 130, 0.35); font-size: 0.72rem; }
   .tag.has-text::before { content: '📖 '; }
-  .tag.doc-id { background: var(--bg-deep); color: var(--text-soft); font-size: 0.7rem; font-family: monospace; }
   .article-meta {
     font-size: 0.82rem; color: var(--text-soft);
     display: flex; justify-content: space-between; align-items: center;
@@ -276,7 +275,8 @@
   .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-soft); }
   .empty-state-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.4; color: var(--primary); }
   .modal-overlay {
-    display: none; position: fixed; inset: 0;
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(26, 61, 46, 0.5); backdrop-filter: blur(6px);
     z-index: 100; justify-content: center; align-items: center; padding: 2rem;
     animation: fadeIn 0.3s;
@@ -309,8 +309,9 @@
   }
   .modal-section { margin-bottom: 1.2rem; }
   .modal-section-label {
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px;
-    color: var(--text-soft); margin-bottom: 0.3rem; font-weight: 600;
+    font-size: 0.78rem; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-soft);
+    margin-bottom: 0.3rem; font-weight: 600;
   }
   .modal-section-value { font-size: 1rem; color: var(--text); line-height: 1.6; }
   .modal-keywords { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
@@ -379,15 +380,21 @@
       <path d="M0,110 L100,75 L180,95 L260,65 L340,90 L420,70 L500,95 L580,75 L660,100 L740,72 L820,95 L900,78 L980,100 L1060,80 L1140,100 L1200,85 L1200,140 L0,140 Z" fill="url(#mg2)"/>
       <path d="M0,125 L60,100 L140,115 L220,95 L300,118 L380,100 L460,120 L540,105 L620,122 L700,102 L780,120 L860,108 L940,125 L1020,110 L1100,125 L1200,115 L1200,140 L0,140 Z" fill="url(#mg1)"/>
       <g fill="#1a3d2e" opacity="0.8">
-        <polygon points="100,125 105,110 110,125"/><polygon points="115,125 120,108 125,125"/>
-        <polygon points="300,125 305,105 310,125"/><polygon points="320,125 325,110 330,125"/>
-        <polygon points="500,125 505,108 510,125"/><polygon points="700,125 705,105 710,125"/>
-        <polygon points="720,125 725,112 730,125"/><polygon points="900,125 905,108 910,125"/>
+        <polygon points="100,125 105,110 110,125"/>
+        <polygon points="115,125 120,108 125,125"/>
+        <polygon points="300,125 305,105 310,125"/>
+        <polygon points="320,125 325,110 330,125"/>
+        <polygon points="500,125 505,108 510,125"/>
+        <polygon points="700,125 705,105 710,125"/>
+        <polygon points="720,125 725,112 730,125"/>
+        <polygon points="900,125 905,108 910,125"/>
         <polygon points="1100,125 1105,105 1110,125"/>
       </g>
       <g fill="#c9a961">
-        <circle cx="200" cy="30" r="1.5"/><circle cx="450" cy="20" r="1.2"/>
-        <circle cx="750" cy="25" r="1.5"/><circle cx="1000" cy="18" r="1.2"/>
+        <circle cx="200" cy="30" r="1.5"/>
+        <circle cx="450" cy="20" r="1.2"/>
+        <circle cx="750" cy="25" r="1.5"/>
+        <circle cx="1000" cy="18" r="1.2"/>
         <circle cx="600" cy="15" r="1"/>
       </g>
     </svg>
@@ -399,9 +406,6 @@
     <div class="spinner"></div>
     <span id="loadingText">Загрузка данных из репозитория…</span>
   </div>
-
-  <button class="debug-toggle" id="debugToggle" onclick="toggleDebug()">🔧 Показать отладку</button>
-  <div class="debug-panel" id="debugPanel"></div>
 
   <div class="filters">
     <div class="filters-title">Поиск по корпусу</div>
@@ -421,7 +425,7 @@
       <button class="scope-chip" data-scope="author" onclick="setScope('author', this)">В авторах</button>
     </div>
     <div class="search-hint">
-      💡 Попробуйте: <code>парадигма</code>, <code>контактный</code>, <code>лирический герой</code>, <code>А. Блок</code>, <code>анафора</code>
+      💡 Ищите по любым словам из текста: <code>парадигма</code>, <code>предикат</code>, <code>контактный</code>, <code>лирический герой</code>, <code>А. Блок</code>, <code>конкретизация</code>, <code>анафора</code>
     </div>
     <div class="filter-grid" style="margin-top: 1.2rem;">
       <div class="filter-group">
@@ -477,9 +481,8 @@ const PARAGRAPHS_URL = `${GITHUB_BASE}/${encodeURIComponent(PARAGRAPHS_FILE)}`;
 // СОСТОЯНИЕ
 // =====================================================================
 let articles = [];
-let articleTexts = {};   // { docId: "полный текст" }
+let articleTexts = {};
 let currentScope = 'all';
-let debugInfo = { articlesUrl: '', paragraphsUrl: '', jsonStatus: '', jsonLength: 0, excelColumns: [], matchedByDocId: 0, matchedByTitle: 0, unmatchedIds: [] };
 
 // =====================================================================
 // БАННЕР ЗАГРУЗКИ
@@ -491,58 +494,6 @@ function setLoading(text, type = 'loading') {
   banner.className = 'loading-banner' + (type !== 'loading' ? ' ' + type : '');
   if (spinner) spinner.style.display = type === 'loading' ? 'block' : 'none';
   txt.textContent = text;
-}
-
-// =====================================================================
-// ПАНЕЛЬ ОТЛАДКИ
-// =====================================================================
-function toggleDebug() {
-  const panel = document.getElementById('debugPanel');
-  const btn = document.getElementById('debugToggle');
-  panel.classList.toggle('visible');
-  btn.textContent = panel.classList.contains('visible') ? '🔧 Скрыть отладку' : '🔧 Показать отладку';
-}
-
-function renderDebug() {
-  const panel = document.getElementById('debugPanel');
-  const excelIds = articles.map(a => a.docId).filter(Boolean);
-  const jsonIds = Object.keys(articleTexts);
-  
-  panel.innerHTML = `
-    <h3>Отладочная информация</h3>
-    
-    <div class="debug-section">
-      <strong>URL списка статей:</strong><br>
-      <code>${debugInfo.articlesUrl}</code>
-    </div>
-    
-    <div class="debug-section">
-      <strong>URL JSON с абзацами:</strong><br>
-      <code>${debugInfo.paragraphsUrl}</code><br>
-      <strong>Статус загрузки:</strong> ${debugInfo.jsonStatus}<br>
-      <strong>Элементов в JSON:</strong> ${debugInfo.jsonLength}<br>
-      <strong>Уникальных document_id в JSON:</strong> ${jsonIds.length} → <code>${jsonIds.join(', ') || '—'}</code>
-    </div>
-    
-    <div class="debug-section">
-      <strong>Колонки, найденные в Excel:</strong><br>
-      <code>${debugInfo.excelColumns.join(', ')}</code>
-    </div>
-    
-    <div class="debug-section">
-      <strong>Всего статей в Excel:</strong> ${articles.length}<br>
-      <strong>Совпадений по document_id:</strong> ${debugInfo.matchedByDocId}<br>
-      <strong>Совпадений по названию (fallback):</strong> ${debugInfo.matchedByTitle}<br>
-      <strong>Статей с текстом:</strong> ${articles.filter(a => a.hasText).length}
-    </div>
-    
-    ${debugInfo.unmatchedIds.length > 0 ? `
-    <div class="debug-section warning">
-      <strong>⚠️ ID из Excel, которые НЕ найдены в JSON:</strong><br>
-      <code>${debugInfo.unmatchedIds.slice(0, 20).join(', ')}</code>
-      ${debugInfo.unmatchedIds.length > 20 ? `<br>... и ещё ${debugInfo.unmatchedIds.length - 20}` : ''}
-    </div>` : ''}
-  `;
 }
 
 // =====================================================================
@@ -558,18 +509,12 @@ async function loadXlsx(url) {
 }
 
 // =====================================================================
-// ПОИСК КЛЮЧА (гибкий, с частичным совпадением)
+// ПОИСК КЛЮЧА ПО СПИСКУ КАНДИДАТОВ
 // =====================================================================
 function findKey(row, candidates) {
   const keys = Object.keys(row);
-  // Сначала точное совпадение
   for (const c of candidates) {
     const found = keys.find(k => k.toLowerCase().trim() === c.toLowerCase());
-    if (found) return found;
-  }
-  // Потом частичное совпадение (если колонка содержит искомое слово)
-  for (const c of candidates) {
-    const found = keys.find(k => k.toLowerCase().includes(c.toLowerCase()));
     if (found) return found;
   }
   return null;
@@ -583,8 +528,6 @@ async function loadArticles() {
   if (rows.length === 0) throw new Error('Файл со списком статей пуст');
   
   const sample = rows[0];
-  debugInfo.excelColumns = Object.keys(sample);
-  
   const titleKey    = findKey(sample, ['название', 'title']);
   const yearKey     = findKey(sample, ['год', 'year']);
   const authorsKey  = findKey(sample, ['авторы', 'authors']);
@@ -592,6 +535,9 @@ async function loadArticles() {
   const typeKey     = findKey(sample, ['тип', 'type']);
   const docIdKey    = findKey(sample, ['document_id']);
   const linkKey     = findKey(sample, ['ссылка на документ', 'link']);
+  
+  console.log('Колонки Excel:', Object.keys(sample));
+  console.log('Найденные ключи:', { titleKey, yearKey, authorsKey, themeKey, typeKey, docIdKey, linkKey });
   
   return rows
     .map(r => ({
@@ -607,15 +553,23 @@ async function loadArticles() {
 }
 
 // =====================================================================
-// ЗАГРУЗКА АБЗАЦЕВ (JSON)
+// ЗАГРУЗКА АБЗАЦЕВ (JSON) С ОТЛАДКОЙ
 // =====================================================================
 async function loadParagraphs() {
   try {
+    console.log('Загрузка JSON:', PARAGRAPHS_URL);
     const response = await fetch(PARAGRAPHS_URL);
-    debugInfo.jsonStatus = `HTTP ${response.status} ${response.ok ? 'OK' : 'FAIL'}`;
-    if (!response.ok) return 0;
+    if (!response.ok) {
+      console.warn('JSON не загрузился:', response.status);
+      return 0;
+    }
     const data = await response.json();
-    debugInfo.jsonLength = Array.isArray(data) ? data.length : 0;
+    
+    console.log('Структура JSON:', Array.isArray(data) ? `массив из ${data.length} элементов` : typeof data);
+    if (data.length > 0) {
+      console.log('Первый элемент JSON:', data[0]);
+      console.log('Ключи первого элемента:', Object.keys(data[0]));
+    }
     
     const grouped = {};
     data.forEach(row => {
@@ -628,6 +582,9 @@ async function loadParagraphs() {
       });
     });
     
+    console.log('Найдено документов в JSON:', Object.keys(grouped).length);
+    console.log('ID документов:', Object.keys(grouped));
+    
     Object.keys(grouped).forEach(docId => {
       grouped[docId].sort((a, b) => a.num - b.num);
       articleTexts[docId] = grouped[docId]
@@ -636,66 +593,13 @@ async function loadParagraphs() {
         .join(' ');
     });
     
+    console.log('articleTexts keys:', Object.keys(articleTexts));
+    
     return Object.keys(grouped).length;
   } catch (err) {
-    debugInfo.jsonStatus = `ОШИБКА: ${err.message}`;
     console.warn('Не удалось загрузить JSON с абзацами:', err);
     return 0;
   }
-}
-
-// =====================================================================
-// УМНОЕ СОПОСТАВЛЕНИЕ СТАТЕЙ С ТЕКСТАМИ
-// =====================================================================
-// Нормализация названия для сравнения
-function normalizeTitle(t) {
-  return (t || '')
-    .toLowerCase()
-    .replace(/ё/g, 'е')
-    .replace(/[^\w\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function matchArticlesToTexts(loadedArticles) {
-  const jsonIds = Object.keys(articleTexts);
-  
-  // Строим индекс: нормализованное название → docId в JSON
-  // (извлекаем название из первого содержательного абзаца текста)
-  const jsonTitleToId = {};
-  jsonIds.forEach(id => {
-    const text = articleTexts[id];
-    // Ищем в тексте заголовок — обычно это абзац, совпадающий с названием
-    // Просто индексируем сам текст для поиска по названию
-    jsonTitleToId[id] = text.toLowerCase();
-  });
-  
-  loadedArticles.forEach(a => {
-    // 1. Прямое совпадение по document_id
-    if (a.docId && articleTexts[a.docId]) {
-      a.hasText = true;
-      debugInfo.matchedByDocId++;
-      return;
-    }
-    
-    // 2. Fallback: ищем статью в JSON по названию
-    //    (название должно встречаться в тексте статьи)
-    const normTitle = normalizeTitle(a.title);
-    if (normTitle.length > 10) {
-      for (const id of jsonIds) {
-        const jsonText = articleTexts[id].toLowerCase();
-        if (jsonText.includes(normTitle)) {
-          a.hasText = true;
-          a.matchedId = id; // запоминаем, с каким ID сопоставили
-          debugInfo.matchedByTitle++;
-          return;
-        }
-      }
-    }
-    
-    a.hasText = false;
-    if (a.docId) debugInfo.unmatchedIds.push(a.docId);
-  });
 }
 
 // =====================================================================
@@ -720,4 +624,409 @@ function generateKeywords(article) {
     { pattern: /когнитивн|когнит/, kw: 'когнитивистика' },
     { pattern: /синоним|антоним/, kw: 'синонимия' },
     { pattern: /пространств|денотативн/, kw: 'пространство' },
-    { pattern: /
+    { pattern: /категоризац|классификац|класс(ы|ов)/, kw: 'категоризация' },
+    { pattern: /полипарадигм|интеграц|интегративн/, kw: 'интеграция парадигм' },
+    { pattern: /предложени|синтаксич|синтаксис/, kw: 'синтаксис' },
+    { pattern: /картин(а|ы) мир|языков(ая|ой) картин/, kw: 'языковая картина мира' },
+    { pattern: /уральск|усш/, kw: 'Уральская школа' },
+    { pattern: /пушкин|ахмат|мандельштам|чехов|шукшин|гоголь|платонов|тэффи/, kw: 'художественный текст' },
+    { pattern: /жест/, kw: 'невербалика' },
+    { pattern: /оценочн|оценк/, kw: 'оценочность' },
+    { pattern: /антропологич|человеческ(ий|ого) фактор/, kw: 'антропоцентризм' },
+    { pattern: /национальн|китайск|немецк|украинск|сопостав/, kw: 'сопоставление языков' },
+    { pattern: /насеком/, kw: 'тематическая лексика' },
+    { pattern: /корпусн/, kw: 'корпусная лингвистика' },
+    { pattern: /повтор|повторн/, kw: 'повтор' },
+    { pattern: /платонов/, kw: 'А. Платонов' },
+    { pattern: /чехов/, kw: 'А. Чехов' }
+  ];
+  
+  rules.forEach(r => { if (r.pattern.test(t)) kw.add(r.kw); });
+  return [...kw].slice(0, 5);
+}
+
+// =====================================================================
+// ИНИЦИАЛИЗАЦИЯ
+// =====================================================================
+async function init() {
+  setLoading('Загрузка списка статей из GitHub…');
+  
+  try {
+    const [loadedArticles, docsCount] = await Promise.all([
+      loadArticles(),
+      loadParagraphs()
+    ]);
+    
+    articles = loadedArticles.map(a => {
+      const hasText = !!articleTexts[a.docId];
+      if (hasText) {
+        console.log(`✓ Статья "${a.title}" имеет текст (${articleTexts[a.docId].length} символов)`);
+      }
+      return {
+        ...a,
+        keywords: generateKeywords(a),
+        hasText
+      };
+    });
+    
+    const articlesWithText = articles.filter(a => a.hasText).length;
+    console.log(`Всего статей: ${articles.length}, с текстом: ${articlesWithText}`);
+    
+    populateFilters();
+    applyFilters();
+    
+    setLoading(
+      `✓ Загружено: ${articles.length} публикаций, текстов в корпусе: ${articlesWithText}`,
+      'success'
+    );
+    
+    setTimeout(() => {
+      document.getElementById('loadingBanner').style.display = 'none';
+    }, 3000);
+    
+  } catch (err) {
+    console.error('Ошибка инициализации:', err);
+    setLoading(
+      `✗ Ошибка: ${err.message}. Проверьте, что файлы лежат в корне репозитория.`,
+      'error'
+    );
+  }
+}
+
+// =====================================================================
+// ФИЛЬТРЫ
+// =====================================================================
+function populateFilters() {
+  const years    = [...new Set(articles.map(a => a.year).filter(y => y))].sort((a, b) => b - a);
+  const themes   = [...new Set(articles.map(a => a.theme).filter(t => t))].sort();
+  const keywords = [...new Set(articles.flatMap(a => a.keywords))].sort();
+  
+  const yearSelect = document.getElementById('filterYear');
+  yearSelect.innerHTML = '<option value="">Все годы</option>';
+  years.forEach(y => {
+    const opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    yearSelect.appendChild(opt);
+  });
+
+  const themeSelect = document.getElementById('filterTheme');
+  themeSelect.innerHTML = '<option value="">Все тематики</option>';
+  themes.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t; opt.textContent = t;
+    themeSelect.appendChild(opt);
+  });
+
+  const kwSelect = document.getElementById('filterKeyword');
+  kwSelect.innerHTML = '<option value="">Все ключевые слова</option>';
+  keywords.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k; opt.textContent = '#' + k;
+    kwSelect.appendChild(opt);
+  });
+}
+
+// =====================================================================
+// ПОИСК
+// =====================================================================
+function normalize(str) { return str.toLowerCase().replace(/ё/g, 'е'); }
+
+function getSnippet(text, query, contextLen = 120) {
+  if (!text || !query) return null;
+  const normText = normalize(text);
+  const normQuery = normalize(query);
+  const idx = normText.indexOf(normQuery);
+  if (idx === -1) return null;
+  const start = Math.max(0, idx - contextLen);
+  const end = Math.min(text.length, idx + query.length + contextLen);
+  let snippet = '';
+  if (start > 0) snippet += '… ';
+  snippet += text.slice(start, end);
+  if (end < text.length) snippet += ' …';
+  return snippet;
+}
+
+function highlightText(text, query) {
+  if (!query) return escapeHtml(text);
+  const normText = normalize(text);
+  const normQuery = normalize(query);
+  let result = '', lastIdx = 0, searchIdx = 0;
+  while (true) {
+    const idx = normText.indexOf(normQuery, searchIdx);
+    if (idx === -1) break;
+    result += escapeHtml(text.slice(lastIdx, idx));
+    result += '<mark>' + escapeHtml(text.slice(idx, idx + query.length)) + '</mark>';
+    lastIdx = idx + query.length;
+    searchIdx = lastIdx;
+  }
+  result += escapeHtml(text.slice(lastIdx));
+  return result;
+}
+
+function highlightFirst(text, query) {
+  if (!query) return escapeHtml(text);
+  const normText = normalize(text);
+  const normQuery = normalize(query);
+  const idx = normText.indexOf(normQuery);
+  if (idx === -1) return escapeHtml(text);
+  return escapeHtml(text.slice(0, idx)) + 
+         '<mark>' + escapeHtml(text.slice(idx, idx + query.length)) + '</mark>' + 
+         escapeHtml(text.slice(idx + query.length));
+}
+
+function countMatches(text, query) {
+  if (!text || !query) return 0;
+  const normText = normalize(text);
+  const normQuery = normalize(query);
+  let count = 0, idx = 0;
+  while ((idx = normText.indexOf(normQuery, idx)) !== -1) {
+    count++; idx += normQuery.length;
+  }
+  return count;
+}
+
+function pluralize(n, one, two, five) {
+  let abs = Math.abs(n) % 100;
+  if (abs >= 11 && abs <= 19) return five;
+  abs = abs % 10;
+  if (abs === 1) return one;
+  if (abs >= 2 && abs <= 4) return two;
+  return five;
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// =====================================================================
+// ОБЛАСТЬ ПОИСКА
+// =====================================================================
+function setScope(scope, btn) {
+  currentScope = scope;
+  document.querySelectorAll('.scope-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+// =====================================================================
+// ФИЛЬТРАЦИЯ
+// =====================================================================
+function filterArticles() {
+  const search  = document.getElementById('searchInput').value.trim();
+  const year    = document.getElementById('filterYear').value;
+  const theme   = document.getElementById('filterTheme').value;
+  const keyword = document.getElementById('filterKeyword').value;
+
+  return articles.map(a => {
+    if (year    && a.year    !== year)    return null;
+    if (theme   && a.theme   !== theme)   return null;
+    if (keyword && !a.keywords.includes(keyword)) return null;
+    
+    let matchInfo = { matchType: null, snippet: null, matchCount: 0 };
+    
+    if (search) {
+      const normSearch  = normalize(search);
+      const normTitle   = normalize(a.title);
+      const normAuthors = normalize(a.authors || '');
+      const text        = articleTexts[a.docId] || '';
+      const normText    = normalize(text);
+      
+      const inTitle    = normTitle.includes(normSearch);
+      const inAuthors  = normAuthors.includes(normSearch);
+      const inText     = text && normText.includes(normSearch);
+      const inKeywords = a.keywords.some(k => normalize(k).includes(normSearch));
+      
+      if (currentScope === 'text'   && !inText)    return null;
+      if (currentScope === 'title'  && !inTitle)   return null;
+      if (currentScope === 'author' && !inAuthors) return null;
+      
+      if (!inTitle && !inAuthors && !inText && !inKeywords) return null;
+      
+      if (inText) {
+        matchInfo.matchType  = 'text';
+        matchInfo.snippet    = getSnippet(text, search);
+        matchInfo.matchCount = countMatches(text, search);
+      } else if (inTitle) {
+        matchInfo.matchType = 'title';
+      } else if (inAuthors) {
+        matchInfo.matchType = 'author';
+      } else if (inKeywords) {
+        matchInfo.matchType = 'keyword';
+      }
+    }
+    
+    return { article: a, matchInfo };
+  }).filter(x => x !== null);
+}
+
+// =====================================================================
+// РЕНДЕР
+// =====================================================================
+function renderArticles(list) {
+  const grid = document.getElementById('articlesGrid');
+  document.getElementById('resultCount').textContent = list.length;
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column: 1/-1;">
+        <div class="empty-state-icon">❖</div>
+        <p>Ничего не найдено. Попробуйте изменить параметры поиска.</p>
+      </div>`;
+    return;
+  }
+
+  const search = document.getElementById('searchInput').value.trim();
+
+  grid.innerHTML = list.map(({ article: a, matchInfo }) => {
+    const realIdx = articles.indexOf(a);
+    const kwTags  = a.keywords.slice(0, 3).map(k => `<span class="tag keyword">${escapeHtml(k)}</span>`).join('');
+    
+    let snippetHtml = '';
+    if (matchInfo.snippet) {
+      snippetHtml = `
+        <div class="article-snippet-label">📖 Найдено в тексте (${matchInfo.matchCount} ${pluralize(matchInfo.matchCount, 'совпадение', 'совпадения', 'совпадений')})</div>
+        <div class="article-snippet">${highlightFirst(matchInfo.snippet, search)}</div>
+      `;
+    } else if (a.hasText) {
+      snippetHtml = `<div class="article-snippet-label">📖 Текст статьи доступен для поиска</div>`;
+    }
+    
+    return `
+      <div class="article-card" onclick="openModal(${realIdx})">
+        <div class="article-year">${a.year || '—'}</div>
+        <div class="article-title">${search && matchInfo.matchType === 'title' ? highlightFirst(a.title, search) : escapeHtml(a.title)}</div>
+        <div class="article-authors">${search && matchInfo.matchType === 'author' ? highlightFirst(a.authors, search) : escapeHtml(a.authors || 'Автор не указан')}</div>
+        ${snippetHtml}
+        <div class="article-tags">
+          ${a.theme ? `<span class="tag theme">${escapeHtml(a.theme)}</span>` : ''}
+          ${kwTags}
+          ${a.hasText ? `<span class="tag has-text">полный текст</span>` : ''}
+        </div>
+        <div class="article-meta">
+          <span>${a.type || 'статья'}</span>
+          <span>→</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// =====================================================================
+// МОДАЛКА
+// =====================================================================
+function buildDocLink(a) {
+  if (!a.link) return '<span style="color: var(--text-soft); font-style: italic;">Документ не прикреплён</span>';
+  if (a.link.startsWith('http')) {
+    return `<a href="${escapeHtml(a.link)}" target="_blank" class="modal-link">Открыть документ ↗</a>`;
+  }
+  const ghLink = `${GITHUB_BASE}/${encodeURIComponent(a.link)}`;
+  return `<a href="${ghLink}" target="_blank" class="modal-link">📄 Скачать с GitHub ↗</a>`;
+}
+
+function openModal(idx) {
+  const a      = articles[idx];
+  const search = document.getElementById('searchInput').value.trim();
+  const modal  = document.getElementById('modalContent');
+  
+  const linkHtml = buildDocLink(a);
+  const kwTags   = a.keywords.map(k => `<span class="tag keyword">${escapeHtml(k)}</span>`).join('');
+  
+  let textViewerHtml = '';
+  if (a.hasText) {
+    const fullText   = articleTexts[a.docId];
+    const paragraphs = fullText.split(/(?<=[.!?])\s+/);
+    const matchCount = search ? countMatches(fullText, search) : 0;
+    const paragraphsHtml = paragraphs.map(p => {
+      const highlighted = search ? highlightText(p, search) : escapeHtml(p);
+      return `<p>${highlighted}</p>`;
+    }).join('');
+    textViewerHtml = `
+      <div class="modal-section">
+        <div class="modal-section-label">
+          📖 Полный текст статьи
+          ${search && matchCount > 0 ? `<span class="matches-counter">${matchCount} ${pluralize(matchCount, 'совпадение', 'совпадения', 'совпадений')}</span>` : ''}
+        </div>
+        <div class="text-viewer">${paragraphsHtml}</div>
+      </div>
+    `;
+  } else {
+    textViewerHtml = `
+      <div class="modal-section">
+        <div class="modal-section-label">📖 Текст статьи</div>
+        <div class="modal-section-value" style="color: var(--text-soft); font-style: italic;">Текст статьи не загружен. Доступен только поиск по метаданным.</div>
+      </div>
+    `;
+  }
+
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeModal(event, true)">✕</button>
+    <div class="modal-year">${a.year || '—'}</div>
+    <div class="modal-title">${search ? highlightFirst(a.title, search) : escapeHtml(a.title)}</div>
+    <div class="modal-section">
+      <div class="modal-section-label">Авторы</div>
+      <div class="modal-section-value">${search ? highlightFirst(a.authors || '—', search) : escapeHtml(a.authors || '—')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Тематика</div>
+      <div class="modal-section-value">${escapeHtml(a.theme || '—')}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-label">Тип публикации</div>
+      <div class="modal-section-value">${escapeHtml(a.type || '—')}</div>
+    </div>
+    ${a.keywords.length > 0 ? `
+    <div class="modal-section">
+      <div class="modal-section-label">Ключевые слова</div>
+      <div class="modal-keywords">${kwTags}</div>
+    </div>` : ''}
+    ${textViewerHtml}
+    <div class="modal-section">
+      <div class="modal-section-label">Документ</div>
+      <div class="modal-section-value">${linkHtml}</div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(event, force = false) {
+  if (force || event.target.id === 'modalOverlay') {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+}
+
+function resetFilters() {
+  document.getElementById('searchInput').value  = '';
+  document.getElementById('filterYear').value   = '';
+  document.getElementById('filterTheme').value  = '';
+  document.getElementById('filterKeyword').value = '';
+  applyFilters();
+}
+
+function applyFilters() { renderArticles(filterArticles()); }
+
+function setView(mode, btn) {
+  const grid = document.getElementById('articlesGrid');
+  if (mode === 'list') grid.classList.add('list-view');
+  else grid.classList.remove('list-view');
+  document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// =====================================================================
+// СОБЫТИЯ
+// =====================================================================
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+document.getElementById('filterYear').addEventListener('change', applyFilters);
+document.getElementById('filterTheme').addEventListener('change', applyFilters);
+document.getElementById('filterKeyword').addEventListener('change', applyFilters);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(null, true); });
+
+// =====================================================================
+// ЗАПУСК
+// =====================================================================
+init();
+</script>
+
+</body>
+</html>
